@@ -26,7 +26,7 @@ app.use(cookieParser());
 
 // endpoints // 
 app.get("/", (req, res) => {
-    res.redirect("/posts");
+    res.redirect("/posts/1");
 })
 app.get("/posts/:page", async (req, res) => {
     const { page } = req.params;
