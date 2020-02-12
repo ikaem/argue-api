@@ -5,7 +5,6 @@ const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 
-const uuid = require("uuid/v1");
 const { users, posts, replies, topis } = require("./assets/fakeDB");
 const { 
     createAccessToken, 
@@ -73,7 +72,7 @@ app.post("/newpost", /* authenticateAccessToken,  */async (req, res) => {
         // make sure post text is true
         if(!postBody) return res.status(500).json({data: {}, message: "cannot create empty post"});
         posts.push({
-            id: posts.length,
+            id: posts.length + 1,
             author: loggedUserName,
             text: postBody,
             dateCreated: new Date(Date.now()),
@@ -92,10 +91,6 @@ app.post("/newpost", /* authenticateAccessToken,  */async (req, res) => {
         //     });
         //     if
         // })
-
-
-
-
         res.json({data: {}, message: "new post successfully created"});
     }
     catch (err) {
@@ -162,7 +157,7 @@ app.post("/newreply", /* authenticateAccessToken,  */async (req, res) => {
     try {
         if(!replyBody) return res.status(500).json({data: {}, message: "cannot create empty reply"});
         replies.push({
-            id: uuid(),
+            id: replies.length + 1,
             postId: Number(postId),
             // temportary until authenticate token enabled...
             author: "karlo",
